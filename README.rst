@@ -1,51 +1,33 @@
-pyOCD
-=====
+pyDAPgdb
+========
 
-pyOCD is an Open Source python 2.7 based library for programming and debugging 
-ARM Cortex-M microcontrollers using CMSIS-DAP. Linux, OSX and Windows are 
-supported.
+pyDAPgdb is a complete GDB server implemented on top of the 
+`pyOCD <https://github.com/mbedmicro/pyOCD>`__ library.
 
-You can use the following interfaces:
+From a GDB client, you have all the features provided by gdb:
 
-#. From a python interpretor:
-
-   -  halt, step, resume execution
-   -  read/write memory
-   -  read/write block memory
-   -  read-write core register
-   -  set/remove hardware breakpoints
-   -  flash new binary
-   -  reset
-
-#. From a GDB client, you have all the features provided by gdb:
-
-   -  load a .elf file
-   -  read/write memory
-   -  read/write core register
-   -  set/remove hardware breakpoints
-   -  high level stepping
-   -  ...
+-  load a .elf file
+-  read/write memory
+-  read/write core register
+-  set/remove hardware breakpoints
+-  high level stepping
+-  reset
+-  ...
 
 Installation
 ------------
-
-The latest stable version of pyOCD may be done via  `pip <https://pip.pypa.io/en/stable/index.html>`__ as follows:
-
-.. code:: shell
-
-    $ pip install --pre -U pyocd
 
 To install the latest development version (master branch), you can do
 the following:
 
 .. code:: shell
 
-    $ pip install --pre -U https://github.com/mbedmicro/pyOCD/archive/master.zip
+    $ pip install --pre -U https://github.com/mbedmicro/pyDAPgdb/archive/master.zip
 
 Note that you may run into permissions issues running these commands.
 You have a few options here:
 
-#. Run with ``sudo -H`` to install pyOCD and dependencies globally
+#. Run with ``sudo -H`` to install pyDAPgdb and dependencies globally
 #. Specify the ``--user`` option to install local to your user
 #. Run the command in a `virtualenv <https://virtualenv.pypa.io/en/latest/>`__ 
    local to a specific project working set.
@@ -59,14 +41,14 @@ You can also install from source by cloning the git repository and running
 Standalone GDB Server
 ---------------------
 
-When you install pyOCD via pip, you should be able to execute the
+When you install pyDAPgdb via pip, you should be able to execute the
 following in order to start a GDB server powered by pyOCD:
 
 .. code:: shell
 
-    pyocd-gdbserver
+    pydap-gdbserver
 
-You can get additional help by running ``pyocd-gdbserver --help``.
+You can get additional help by running ``pydap-gdbserver --help``.
 
 Recommended GDB and IDE setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,86 +86,14 @@ On Windows, the virtualenv would be activated by executing
 Examples
 --------
 
-Tests
-~~~~~
-
-A series of tests are provided in the test directory:
-
--  basic\_test.py: a simple test that checks:
-
-   -  read/write core registers
-   -  read/write memory
-   -  stop/resume/step the execution
-   -  reset the target
-   -  erase pages
-   -  flash a binary
-    
--  gdb\_test.py: launch a gdbserver
--  gdb\_server.py: an enhanced version of gdbserver which provides the following options:
-
-   -  "-p", "--port", help = "Write the port number that GDB server will open."
-   -  "-b", "--board", help="Connect to board by board id."
-   -  "-l", "--list", help = "List all connected boards."
-   -  "-d", "--debug", help = "Set the level of system logging output."
-   -  "-t", "--target", help = "Override target to debug."
-   -  "-n", "--nobreak", help = "Disable halt at hardfault handler."
-   -  "-r", "--reset-break", help = "Halt the target when reset."
-   -  "-s", "--step-int", help = "Allow single stepping to step into interrupts."
-   -  "-f", "--frequency", help = "Set the SWD clock frequency in Hz."
-   -  "-o", "--persist", help = "Keep GDB server running even after remote has detached."
-   -  "-bh", "--soft-bkpt-as-hard", help = "Replace software breakpoints with hardware breakpoints."
-   -  "-ce", "--chip\_erase", help="Use chip erase when programming."
-   -  "-se", "--sector\_erase", help="Use sector erase when programming."
-   -  "-hp", "--hide\_progress", help = "Don't display programming progress."
-   -  "-fp", "--fast\_program", help = "Use only the CRC of each page to determine if it already has the same data."
-
-Hello World example code
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: python
-
-    from pyOCD.board import MbedBoard
-
-    import logging
-    logging.basicConfig(level=logging.INFO)
-
-    board = MbedBoard.chooseBoard()
-
-    target = board.target
-    flash = board.flash
-    target.resume()
-    target.halt()
-
-    print "pc: 0x%X" % target.readCoreRegister("pc")
-        pc: 0xA64
-
-    target.step()
-    print "pc: 0x%X" % target.readCoreRegister("pc")
-        pc: 0xA30
-
-    target.step()
-    print "pc: 0x%X" % target.readCoreRegister("pc")
-       pc: 0xA32
-
-    flash.flashBinary("binaries/l1_lpc1768.bin")
-    print "pc: 0x%X" % target.readCoreRegister("pc")
-       pc: 0x10000000
-
-    target.reset()
-    target.halt()
-    print "pc: 0x%X" % target.readCoreRegister("pc")
-       pc: 0xAAC
-
-    board.uninit()
-
-GDB server example
+Simple GDB server in python
 ~~~~~~~~~~~~~~~~~~
 
 Python:
 
 .. code:: python
 
-    from pyOCD.gdbserver import GDBServer
+    from pyDAPgdb import GDBServer
     from pyOCD.board import MbedBoard
 
     import logging
@@ -204,44 +114,3 @@ gdb server:
     <gdb> load
     <gdb> continue
 
-Architecture
-------------
-
-Interface
-~~~~~~~~~
-
-An interface does the link between the target and the computer.
-This module contains basic functionalities to write and read data to and from
-an interface. You can inherit from ``Interface`` and overwrite
-``read()``, ``write()``, etc
-
-Then declare your interface in ``INTERFACE`` (in ``pyOCD.interface.__init__.py``)
-
-Target
-~~~~~~
-
-A target defines basic functionalities such as ``step``, ``resume``, ``halt``,
-``readMemory``, etc. You can inherit from Target to implement your own methods.
-
-Then declare your target in TARGET (in ``pyOCD.target.__init__.py``)
-
-Transport
-~~~~~~~~~
-
-Defines the transport used to communicate. In particular, you can find CMSIS-DAP.
-Implements methods such as ``memWriteAP``, ``memReadAP``, ``writeDP``, ``readDP``, ...
-
-You can inherit from ``Transport`` and implement your own methods.
-Then declare your transport in ``TRANSPORT`` (in ``pyOCD.transport.__init__.py``)
-
-Flash
-~~~~~
-
-Contains flash algorithm in order to flash a new binary into the target.
-
-gdbserver
-~~~~~~~~~
-Start a GDB server. The server listens on a specific port. You can then
-connect a GDB client to it and debug/program the target.
-
-Then you can debug a board which is composed by an interface, a target, a transport and a flash

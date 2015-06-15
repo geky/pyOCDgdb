@@ -1,2 +1,2 @@
-# install pyOCD itself (and dependencies) as editable
+# install itself (and dependencies) as editable
 --editable .

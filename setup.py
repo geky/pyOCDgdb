@@ -18,17 +18,11 @@
 from setuptools import setup, find_packages
 import sys
 
-install_requires = dict(
-    win32=['pyWinUSB'],
-    linux2=['pyUSB'],
-    darwin=['hidapi']
-)
-
 setup(
-    name="pyOCD",
+    name="pyDAPgdb",
     use_scm_version={
         'local_scheme': 'dirty-tag',
-        'write_to': 'pyOCD/_version.py'
+        'write_to': 'pyDAPgdb/_version.py'
     },
     setup_requires=['setuptools-scm!=1.5.3,!=1.5.4'],
     description="CMSIS-DAP debugger for Python",
@@ -37,7 +31,7 @@ setup(
     author_email="Samuel.Mokrani@arm.com, Emilio.Monti@arm.com",
     url='https://github.com/mbedmicro/pyOCD',
     license="Apache 2.0",
-    install_requires=install_requires[sys.platform] + ['intelhex'],
+    install_requires=['pyocd'],
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: Apache Software License",
@@ -48,9 +42,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'pyocd-gdbserver = pyOCD.tools.gdb_server:main',
-            'pyocd-flashtool = pyOCD.tools.flash_tool:main',
-            'pyocd-tool = pyOCD.tools.pyocd:main',
+            'pydap-gdbserver = tools.gdb_server:main',
         ],
     },
     use_2to3=True,

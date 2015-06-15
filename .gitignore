@@ -51,7 +51,7 @@ tags
 # Doxygen output
 html
 
-#PyCharm project files
+# PyCharm project files
 .idea
 
 # Common virtualenv environment names
@@ -61,6 +61,6 @@ html
 
 automated_test_result.txt
 
-
+# Setuptool's output
 .eggs/
-pyOCD/_version.py
+pyDAPgdb/_version.py
