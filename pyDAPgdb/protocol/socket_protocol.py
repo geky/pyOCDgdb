@@ -15,9 +15,10 @@
  limitations under the License.
 """
 
+from protocol import Protocol
 import socket, select
 
-class GDBSocket(object):
+class Socket(Protocol):
     def __init__(self, port, packet_size):
         self.packet_size = packet_size
         self.s = None

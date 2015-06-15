@@ -1,6 +1,6 @@
 """
  mbed CMSIS-DAP debugger
- Copyright (c) 2006-2015 ARM Limited
+ Copyright (c) 2006-2013 ARM Limited
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 """
-SIGINT = 2
-SIGSEGV = 11
-SIGILL = 4
-SIGSTOP = 17
-SIGTRAP = 5
-SIGBUS = 10
+
+from socket_protocol import Socket
+from websocket_protocol import WebSocket
+
+PROTOCOL = {'socket': Socket,
+            'websocket': WebSocket
+           }
+

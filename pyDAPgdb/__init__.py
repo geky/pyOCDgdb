@@ -15,6 +15,6 @@
  limitations under the License.
 """
 
-from gdbserver import GDBServer
+from gdb_server import GDBServer
 
 from ._version import version as __version__

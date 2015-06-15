@@ -15,37 +15,18 @@
  limitations under the License.
 """
 
-try:
-    from websocket import create_connection
-except:
-    pass
-        
-class GDBWebSocket(object):
-    def __init__(self, url):
-        self.url = url
-        self.wss = None
+class Protocol(object):
+    def connect(self):
         return
     
-    def connect(self):
-        self.wss = None
-        try:
-            self.wss = create_connection(self.url)
-        except:
-            pass
-        return self.wss
-    
     def read(self):
-        return self.wss.recv()
+        return 
     
     def write(self, data):
-        return self.wss.send(data)
+        return
     
     def close(self):
-        return self.wss.close()
+        return
     
     def setBlocking(self, blocking):
-        if blocking != 0:
-            self.wss.settimeout(None)
-        else:
-            self.wss.settimeout(0)
-            
+        return

@@ -22,8 +22,7 @@ from pyOCD.utility.conversion import hexStringToIntList, hexEncode, hexDecode
 from struct import unpack
 from time import sleep, time
 import sys
-from gdb_socket import GDBSocket
-from gdb_websocket import GDBWebSocket
+from protocol import Socket, WebSocket
 
 # Logging options. Set to True to enable.
 LOG_MEM = False # Log memory accesses.
@@ -67,9 +66,9 @@ class GDBServer(threading.Thread):
         self.detach_event = threading.Event()
         self.quit = False
         if self.wss_server == None:
-            self.abstract_socket = GDBSocket(self.port, self.packet_size)
+            self.abstract_socket = Socket(self.port, self.packet_size)
         else:
-            self.abstract_socket = GDBWebSocket(self.wss_server)
+            self.abstract_socket = WebSocket(self.wss_server)
         self.setDaemon(True)
         self.start()
     
