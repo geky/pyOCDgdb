@@ -20,8 +20,8 @@ import argparse
 import logging
 import traceback
 
-from pyDAPgdb import __version__
-from pyDAPgdb import GDBServer
+from pyOCDgdb import __version__
+from pyOCDgdb import GDBServer
 from pyOCD.board import MbedBoard
 import pyOCD.board.mbed_board
 

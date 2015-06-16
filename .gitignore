@@ -63,4 +63,4 @@ automated_test_result.txt
 
 # Setuptool's output
 .eggs/
-pyDAPgdb/_version.py
+pyOCDgdb/_version.py

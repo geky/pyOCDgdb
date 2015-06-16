@@ -1,7 +1,7 @@
-pyDAPgdb
+pyOCDgdb
 ========
 
-pyDAPgdb is a complete GDB server implemented on top of the 
+pyOCDgdb is a complete GDB server implemented on top of the 
 `pyOCD <https://github.com/mbedmicro/pyOCD>`__ library.
 
 From a GDB client, you have all the features provided by gdb:
@@ -22,12 +22,12 @@ the following:
 
 .. code:: shell
 
-    $ pip install --pre -U https://github.com/mbedmicro/pyDAPgdb/archive/master.zip
+    $ pip install --pre -U https://github.com/mbedmicro/pyOCDgdb/archive/master.zip
 
 Note that you may run into permissions issues running these commands.
 You have a few options here:
 
-#. Run with ``sudo -H`` to install pyDAPgdb and dependencies globally
+#. Run with ``sudo -H`` to install pyOCDgdb and dependencies globally
 #. Specify the ``--user`` option to install local to your user
 #. Run the command in a `virtualenv <https://virtualenv.pypa.io/en/latest/>`__ 
    local to a specific project working set.
@@ -41,14 +41,14 @@ You can also install from source by cloning the git repository and running
 Standalone GDB Server
 ---------------------
 
-When you install pyDAPgdb via pip, you should be able to execute the
+When you install pyOCDgdb via pip, you should be able to execute the
 following in order to start a GDB server powered by pyOCD:
 
 .. code:: shell
 
-    pydap-gdbserver
+    pyocd-gdbserver
 
-You can get additional help by running ``pydap-gdbserver --help``.
+You can get additional help by running ``pyocd-gdbserver --help``.
 
 Recommended GDB and IDE setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,7 +93,7 @@ Python:
 
 .. code:: python
 
-    from pyDAPgdb import GDBServer
+    from pyOCDgdb import GDBServer
     from pyOCD.board import MbedBoard
 
     import logging

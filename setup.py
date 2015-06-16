@@ -19,10 +19,10 @@ from setuptools import setup, find_packages
 import sys
 
 setup(
-    name="pyDAPgdb",
+    name="pyOCDgdb",
     use_scm_version={
         'local_scheme': 'dirty-tag',
-        'write_to': 'pyDAPgdb/_version.py'
+        'write_to': 'pyOCDgdb/_version.py'
     },
     setup_requires=['setuptools-scm!=1.5.3,!=1.5.4'],
     description="CMSIS-DAP debugger for Python",
@@ -42,7 +42,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'pydap-gdbserver = tools.gdb_server:main',
+            'pyocd-gdbserver = tools.gdb_server:main',
         ],
     },
     use_2to3=True,
