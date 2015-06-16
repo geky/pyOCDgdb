@@ -25,7 +25,7 @@ setup(
         'write_to': 'pyOCDgdb/_version.py'
     },
     setup_requires=['setuptools-scm!=1.5.3,!=1.5.4'],
-    description="CMSIS-DAP debugger for Python",
+    description="GDB server implemented on top of pyOCD",
     long_description=open('README.rst', 'Ur').read(),
     author="samux, emilmont",
     author_email="Samuel.Mokrani@arm.com, Emilio.Monti@arm.com",
@@ -37,9 +37,6 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
     ],
-    extras_require={
-        'dissassembler': ['capstone']
-    },
     entry_points={
         'console_scripts': [
             'pyocd-gdbserver = tools.gdb_server:main',
@@ -47,5 +44,5 @@ setup(
     },
     use_2to3=True,
     packages=find_packages(),
-    include_package_data=True,  # include files from MANIFEST.in
+    include_package_data=True,
 )
