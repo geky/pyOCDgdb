@@ -17,8 +17,8 @@
 
 import logging, threading, socket
 from pyOCD.target.target import TARGET_HALTED, WATCHPOINT_READ, WATCHPOINT_WRITE, WATCHPOINT_READ_WRITE
-from pyOCD.transport import TransferError
-from pyOCD.utility.conversion import hexStringToIntList, hexEncode, hexDecode
+from pyDAPLink import TransferError
+from utility import hexStringToIntList, hexEncode, hexDecode
 from struct import unpack
 from time import sleep, time
 import sys
