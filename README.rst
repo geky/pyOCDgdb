@@ -1,18 +1,11 @@
 pyOCDgdb
 ========
 
-pyOCDgdb is a complete GDB server implemented on top of the 
-`pyOCD <https://github.com/mbedmicro/pyOCD>`__ library.
-
-From a GDB client, you have all the features provided by gdb:
-
--  load a .elf file
--  read/write memory
--  read/write core register
--  set/remove hardware breakpoints
--  high level stepping
--  reset
--  ...
+pyOCDgdb is a complete GDB server implemented with the 
+`pyOCD <https://github.com/mbedmicro/pyOCD>`__ library. With the 
+appropriate GDB client, pyOCDgdb provides a remote target that 
+can be used for debugging any embedded system supported by pyOCD 
+at the source-code level.
 
 Installation
 ------------
@@ -22,10 +15,10 @@ the following:
 
 .. code:: shell
 
-    $ pip install --pre -U https://github.com/mbedmicro/pyOCDgdb/archive/master.zip
+    $ pip install --pre -U https://github.com/<user>/pyOCDgdb/archive/master.zip
 
-Note that you may run into permissions issues running these commands.
-You have a few options here:
+| Note that you may run into permissions issues running these commands.
+| You have a few options here:
 
 #. Run with ``sudo -H`` to install pyOCDgdb and dependencies globally
 #. Specify the ``--user`` option to install local to your user
@@ -36,19 +29,19 @@ You can also install from source by cloning the git repository and running
 
 .. code:: shell
 
-    python setup.py install
+    $ python setup.py install
 
 Standalone GDB Server
 ---------------------
 
-When you install pyOCDgdb via pip, you should be able to execute the
-following in order to start a GDB server powered by pyOCD:
+Once you have installed pyOCDgdb, you should be able to simply execute 
+the following in order to start a GDB server:
 
 .. code:: shell
 
-    pyocd-gdbserver
+    $ pyocd-gdbserver
 
-You can get additional help by running ``pyocd-gdbserver --help``.
+For additional help and options run ``pyocd-gdbserver --help``.
 
 Recommended GDB and IDE setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,8 +79,11 @@ On Windows, the virtualenv would be activated by executing
 Examples
 --------
 
-Simple GDB server in python
-~~~~~~~~~~~~~~~~~~
+Although running ``pyocd-gdbserver`` is the suggested method for creating a 
+GDB server, pyOCDgdb can be integrated into a Python project as a Python library.
+
+Simple GDB server in Python
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python:
 
@@ -96,21 +92,21 @@ Python:
     from pyOCDgdb import GDBServer
     from pyOCD.board import MbedBoard
 
-    import logging
-    logging.basicConfig(level=logging.INFO)
-
+    # Find a connected mbed device
     board = MbedBoard.chooseBoard()
 
-    # start gdbserver
+    # Start a GDB server
     gdb = GDBServer(board, 3333)
 
-gdb server:
+GDB client:
 
-::
+.. code:: shell
 
-    arm-none-eabi-gdb basic.elf
+    $ arm-none-eabi-gdb basic.elf
 
-    <gdb> target remote localhost:3333
-    <gdb> load
-    <gdb> continue
+    (gdb) target remote localhost:3333
+    (gdb) load
+    (gdb) info registers
+    (gdb) monitor reset
+    (gdb) continue
 

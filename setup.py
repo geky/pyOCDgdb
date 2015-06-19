@@ -25,7 +25,7 @@ setup(
         'write_to': 'pyOCDgdb/_version.py'
     },
     setup_requires=['setuptools-scm!=1.5.3,!=1.5.4'],
-    description="GDB server implemented on top of pyOCD",
+    description="pyOCD based GDB server",
     long_description=open('README.rst', 'Ur').read(),
     author="samux, emilmont",
     author_email="Samuel.Mokrani@arm.com, Emilio.Monti@arm.com",
