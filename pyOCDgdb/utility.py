@@ -15,18 +15,15 @@
  limitations under the License.
 """
 
+import binascii
+
 ## @brief Convert string of hex bytes to list of integers.
 def hexStringToIntList(data):
-    i = 0
-    result = []
-    while i < len(data):
-        result.append(int(data[i:i+2], 16))
-        i += 2
-    return result
+    return [ord(i) for i in binascii.unhexlify(data)]
 
 def hexDecode(cmd):
-    return ''.join([ chr(int(cmd[i:i+2], 16)) for i in range(0, len(cmd), 2)])
+    return binascii.unhexlify(cmd)
 
 def hexEncode(string):
-    return ''.join(['%02x' % ord(i) for i in string])
+    return binascii.hexlify(string)
 
